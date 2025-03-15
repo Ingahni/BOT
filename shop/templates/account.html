@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Мои заказы</h2>
+{% if orders %}
+<ul>
+{% for o in orders %}
+  <li>Заказ #{{ o.id }} | {{ o.get_status_display }} | {{ o.total_price }} euro. | {{ o.created_at }}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>Заказов нет.</p>
+{% endif %}
+{% endblock %}

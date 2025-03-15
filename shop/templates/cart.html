@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Корзина</h2>
+{% if items %}
+<ul>
+{% for item in items %}
+  <li>{{ item.product.name }} ({{ item.quantity }} шт) - {{ item.product.price }} euro.</li>
+{% endfor %}
+</ul>
+<p>Сумма: {{ total }} euro..</p>
+<form method="post" action="{% url 'checkout' %}">
+  {% csrf_token %}
+  <label>Доставка:</label>
+  <select name="shipping">
+    <option value="pickup">Самовывоз</option>
+    <option value="courier">Курьер</option>
+    <option value="digital">Цифровая</option>
+  </select>
+  <button type="submit">Оформить заказ</button>
+</form>
+{% else %}
+<p>Корзина пуста</p>
+{% endif %}
+<a href="{% url 'catalog' %}">Назад к каталогу</a>
+{% endblock %}
