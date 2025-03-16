@@ -1,5 +1,16 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Загружаем переменные из .env
+load_dotenv()
+
+# Читаем токены и ключи из переменных окружения
+TELEGRAM_TOKEN = os.getenv('TG_TOKEN')
+
+# STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+# STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+# SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'replace-with-your-secret-key'
