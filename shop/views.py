@@ -8,9 +8,13 @@ from .models import Product, Order, OrderItem, Category
 from .forms import RegisterForm, ProductForm
 import stripe
 
-# Настроим Stripe
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
+# Настроим Stripe
+# stripe.api_key = settings.STRIPE_SECRET_KEY
+
+def index(request):
+    return render(request, 'index.html')
+    
 def catalog(request):
     categories = Category.objects.all()
     q = request.GET.get('q', '')

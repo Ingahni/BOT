@@ -8,6 +8,8 @@ from telegram.ext import (
     ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 )
 from shop.models import Product
+from telegram import Bot
+from telegram.ext import Application
 
 import logging
 
@@ -17,7 +19,12 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
+# Замените на реальный токен вашего бота
 BOT_TOKEN = "TG_TOKEN"
+bot = Bot(token=BOT_TOKEN)
+application = Application.builder().token(BOT_TOKEN).build()
+# Запуск бота
+application.run_polling()
 
 CURRENCY = "EURO"  # валюта по умолчанию
 
