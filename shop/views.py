@@ -7,6 +7,7 @@ from django.conf import settings
 from .models import Product, Order, OrderItem, Category
 from .forms import RegisterForm, ProductForm
 
+
 def catalog(request):
     categories = Category.objects.all()
     q = request.GET.get('q', '')
@@ -106,3 +107,6 @@ def add_product(request):
     else:
         form = ProductForm()
     return render(request, 'add_product.html', {'form': form})
+
+
+

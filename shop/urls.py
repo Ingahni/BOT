@@ -4,6 +4,7 @@ from .views import (
     admin_auto_login, add_product
 )
 
+
 urlpatterns = [
     path('', catalog, name='catalog'),
     path('add/<int:product_id>/', add_to_cart, name='add_to_cart'),
@@ -13,4 +14,6 @@ urlpatterns = [
     path('account/', account, name='account'),
     path('admin_auto_login/', admin_auto_login, name='admin_auto_login'),
     path('dashboard/add_product/', add_product, name='add_product'),
+    
+
 ]
