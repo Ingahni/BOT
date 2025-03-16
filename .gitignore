@@ -5,6 +5,8 @@
 
 # Байт-код, оптимизированные / DLL-файлы
 __pycache__/
+*.pyc
+*.pyo
 
 # Default ignored files
 /shelf/
