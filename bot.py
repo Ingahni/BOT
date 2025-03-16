@@ -17,7 +17,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-BOT_TOKEN = "7731590853:AAEZGbb4EZ1JtFI1-yXfQKmX6g_qo4URMqU"
+BOT_TOKEN = "TG_TOKEN"
 
 CURRENCY = "EURO"  # валюта по умолчанию
 
