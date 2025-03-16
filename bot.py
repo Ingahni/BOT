@@ -10,7 +10,7 @@ from telegram.ext import (
 from shop.models import Product
 from telegram import Bot
 from telegram.ext import Application
-
+from dotenv import load_dotenv
 import logging
 
 # Настроим логирование
@@ -19,12 +19,14 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-# Замените на реальный токен вашего бота
-BOT_TOKEN = "TG_TOKEN"
-bot = Bot(token=BOT_TOKEN)
-application = Application.builder().token(BOT_TOKEN).build()
-# Запуск бота
-application.run_polling()
+load_dotenv()
+# BOT_TOKEN = "TG_TOKEN"
+
+BOT_TOKEN = os.getenv("TG_TOKEN")
+# bot = Bot(token=BOT_TOKEN)
+# application = Application.builder().token(BOT_TOKEN).build()
+# # Запуск бота
+# application.run_polling()
 
 CURRENCY = "EURO"  # валюта по умолчанию
 
