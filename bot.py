@@ -12,7 +12,7 @@ from telegram.ext import (
 )
 from shop.models import Product
 
-BOT_TOKEN = "7731590853:AAFMpTryqhr_2nrs1hzGZZeyffVfOmTKBcE"
+BOT_TOKEN = "7731590853:AAEZGbb4EZ1JtFI1-yXfQKmX6g_qo4URMqU"
 
 CURRENCY = "EURO"  # валюта по умолчанию
 
@@ -34,7 +34,7 @@ def get_cart_summary(cart):
         product = Product.objects.get(id=pid)
         s = product.price * qty
         total += s
-        items.append(f"{product.name} x{qty} = {s} euro.")
+        items.append(f"{product.name} x{qty} = {s} EURO.")
     return items, total
 
 
@@ -67,14 +67,14 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         products = await get_all_products()
         keyboard = []
         for prod in products:
-            keyboard.append([InlineKeyboardButton(f"{prod.name} ({prod.price} руб.)", callback_data=f"prod_{prod.id}")])
+            keyboard.append([InlineKeyboardButton(f"{prod.name} ({prod.price} EURO.)", callback_data=f"prod_{prod.id}")])
         keyboard.append([InlineKeyboardButton("Главное меню", callback_data="main_menu")])
         await query.edit_message_text("Список товаров:", reply_markup=InlineKeyboardMarkup(keyboard))
 
     elif data.startswith("prod_"):
         prod_id = int(data.split("_")[1])
         product = await get_product_by_id(prod_id)
-        text = f"{product.name}\nЦена: {product.price} руб.\nОписание: {product.description}"
+        text = f"{product.name}\nЦена: {product.price} EURO.\nОписание: {product.description}"
         keyboard = [
             [InlineKeyboardButton("Добавить в корзину", callback_data=f"add_{prod_id}")],
             [InlineKeyboardButton("Купить на сайте", url="http://127.0.0.1:8000/")],
@@ -102,7 +102,7 @@ async def show_cart(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.callback_query.edit_message_text("Ваша корзина пуста.")
         return
     items, total = await get_cart_summary(cart)
-    text = "\n".join(items) + f"\nИтого: {total} euro."
+    text = "\n".join(items) + f"\nИтого: {total} EURO."
     keyboard = [
         [InlineKeyboardButton("Главное меню", callback_data="main_menu")],
         [InlineKeyboardButton("Оформить заказ на сайте", url="http://127.0.0.1:8000/checkout/")]

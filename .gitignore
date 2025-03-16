@@ -6,8 +6,12 @@
 # Байт-код, оптимизированные / DLL-файлы
 __pycache__
 
+# Default ignored files
+/shelf/
+/workspace.xml
+
 # инструменты и окружение
-myenv/
+venv/
 .env
 db.sqlite3
 local_settings.py
