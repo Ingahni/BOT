@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Читаем токены и ключи из переменных окружения
-TELEGRAM_TOKEN = os.getenv('TG_TOKEN')
+BOT_TOKEN = os.getenv('TG_TOKEN')
 
 # STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 # STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')

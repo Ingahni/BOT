@@ -11,8 +11,16 @@ from telegram.ext import (
     ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 )
 from shop.models import Product
+from dotenv import load_dotenv
 
-BOT_TOKEN = "TG_TOKEN" # токен бота
+
+
+# Читаем токены и ключи из переменных окружения
+TG_TOKEN = os.getenv('TG_TOKEN')
+if not TG_TOKEN:
+    raise ValueError("TG_TOKEN не определено. Убедитесь, что переменная окружения TG_TOKEN установлена.")
+
+
 
 CURRENCY = "EURO"  # валюта по умолчанию
 
@@ -120,7 +128,7 @@ async def checkout(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    app = ApplicationBuilder().token(TG_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(handle_callback))
     app.add_handler(CommandHandler("checkout", checkout))
