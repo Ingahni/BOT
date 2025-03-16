@@ -6,7 +6,10 @@ from django.http import HttpResponse
 from django.conf import settings
 from .models import Product, Order, OrderItem, Category
 from .forms import RegisterForm, ProductForm
+import stripe
 
+# Настроим Stripe
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def catalog(request):
     categories = Category.objects.all()
@@ -19,7 +22,9 @@ def catalog(request):
         products = products.filter(Q(name__icontains=q) | Q(description__icontains=q))
     return render(request, 'catalog.html', {'categories': categories, 'products': products})
 
-@login_required
+@login_required 
+# проверяет, что пользователь вошел в систему. 
+# Если он не авторизован, то он будет перенаправлен на страницу входа.
 def add_to_cart(request, product_id):
     cart = request.session.get('cart', {})
     cart[str(product_id)] = cart.get(str(product_id), 0) + 1

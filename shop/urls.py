@@ -14,6 +14,6 @@ urlpatterns = [
     path('account/', account, name='account'),
     path('admin_auto_login/', admin_auto_login, name='admin_auto_login'),
     path('dashboard/add_product/', add_product, name='add_product'),
-    
+     path('pay/<int:order_id>/', views.pay_order, name='pay_order'),
 
 ]

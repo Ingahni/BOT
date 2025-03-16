@@ -1,16 +1,21 @@
 import os
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'telegram_shop.settings')
 import django
-
 django.setup()
-
 from asgiref.sync import sync_to_async
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 )
 from shop.models import Product
+
+import logging
+
+# Настроим логирование
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 BOT_TOKEN = "7731590853:AAEZGbb4EZ1JtFI1-yXfQKmX6g_qo4URMqU"
 
