@@ -1,26 +1,15 @@
 import os
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'telegram_shop.settings')
 import django
-
 django.setup()
-
 from asgiref.sync import sync_to_async
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 )
 from shop.models import Product
-from dotenv import load_dotenv
 
-
-
-# Читаем токены и ключи из переменных окружения
-TG_TOKEN = os.getenv('TG_TOKEN')
-if not TG_TOKEN:
-    raise ValueError("TG_TOKEN не определено. Убедитесь, что переменная окружения TG_TOKEN установлена.")
-
-
+BOT_TOKEN = "7731590853:AAEZGbb4EZ1JtFI1-yXfQKmX6g_qo4URMqU"
 
 CURRENCY = "EURO"  # валюта по умолчанию
 

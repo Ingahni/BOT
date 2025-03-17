@@ -12,6 +12,7 @@ BOT_TOKEN = os.getenv('TG_TOKEN')
 # STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 # SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'replace-with-your-secret-key'
 DEBUG = True
@@ -69,7 +70,7 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = []
 # пароли могут быть любыми
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'ru-Ru'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
@@ -81,5 +82,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TELEGRAM_ADMIN_IDS = [6024100901]
 ADMIN_AUTO_LOGIN_TOKEN = "zxc"
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # папка для медиа файлов
 

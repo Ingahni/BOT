@@ -5,8 +5,11 @@
 
 # Байт-код, оптимизированные / DLL-файлы
 __pycache__/
+<<<<<<< HEAD
 *.pyc
 *.pyo
+=======
+>>>>>>> integration-branch
 
 # Default ignored files
 /shelf/
