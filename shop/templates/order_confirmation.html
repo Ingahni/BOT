@@ -1,9 +1,15 @@
-{% extends 'base.html' %}
+{% comment %} base.html шаблон наследует основной макет. {% endcomment %}
+{% comment %} ключевые данные заказа: номер, статус, способ доставки, сумма {% endcomment %}
+
+
+{% extends 'base.html' %} 
 {% block content %}
+<div class="order-summary">
 <h2>Заказ оформлен</h2>
 <p>Номер заказа: {{ order.id }}</p>
 <p>Статус: {{ order.get_status_display }}</p>
 <p>Способ доставки: {{ order.get_shipping_method_display }}</p>
 <p>Сумма: {{ order.total_price }} euro..</p>
 <a href="{% url 'catalog' %}">Вернуться к каталогу</a>
+</div>
 {% endblock %}
