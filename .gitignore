@@ -34,3 +34,7 @@ parts/
 
 # Учет операционно-системных файлов Windows 
 Thumbs.db
+
+# info
+info.txt
+comands.txt
