@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
@@ -118,12 +119,14 @@ def add_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Товар успешно добавлен!")
             return redirect('catalog')
+        else:
+            messages.error(request, "Ошибка при добавлении товара.")
     else:
         form = ProductForm()
-    return render(request, 'add_product.html', {'form': form})
 
-from django.shortcuts import render
+    return render(request, 'add_product.html', {'form': form})
 
 @admin_required
 def pay_order(request):
