@@ -77,8 +77,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # Путь для хранения статических файлов на сервере (при развертывании)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# Путь для хранения статических файлов на сервере (при развертывании)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# укажите, где на диске будут храниться статические файлы, если вы их собираете.
+
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
