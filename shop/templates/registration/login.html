@@ -1,9 +1,49 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h2>Вход</h2>
-<form method="post">
+<div class="row justify-content-center">
+  <div class="col-md-6">
+   <h2 class="mb-4">Вход</h2>
+
+    <!-- Вывод сообщений Django -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+<!-- Форма входа -->    
+<form method="post" class="card p-4 shadow-sm">
   {% csrf_token %}
-  {{ form.as_p }}
+
+  {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
   <button type="submit">Войти</button>
 </form>
+
+<!-- Дополнительные ссылки -->
+<div class="text-center mt-3">
+  <a href="{% url 'password_reset' %}" class="text-decoration-none">Забыли пароль?</a> |
+  <a href="{% url 'register' %}" class="text-decoration-none">Регистрация</a>
+</div>
+</div>
+</div>
+
 {% endblock %}
+
+{% comment %} {{ form.as_p }} это упрощенный способ отобразить форму в виде абзацев. {% endcomment %}
+
+{% comment %} 
+ Bootstrap-стилизация формы
+ Вывод ошибок при вводе
+ Отображение сообщений (messages)
+ Кнопка "Забыли пароль?"
+ Ссылка на регистрацию для новых пользователей {% endcomment %}

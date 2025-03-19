@@ -24,3 +24,5 @@ display: flex;.
 find . -name "__pycache__" -type d -exec rm -rf {} +
 
 или вручную удалите папку __pycache__ в shop/.
+
+3/ мои заказы отредачити
