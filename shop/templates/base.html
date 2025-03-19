@@ -1,10 +1,18 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>Магазин</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Локальный CSS -->
+  <link rel="stylesheet" href="{% static 'css/visual.css' %}">
+  <!-- Bootstrap CSS -->
+  <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+   <!-- Дополнительный стиль (опционально) -->
   <style>
     body { padding-top: 70px; }
   </style>
@@ -25,37 +33,47 @@
 Некоторые пользователи могут не иметь username {% endcomment %}
               <a class="nav-link" href="{% url 'account' %}">Привет, {{ user.get_full_name|default:user.username|default:"Гость"  }}</a>
             </li>
-            {% if user.is_staff %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'add_product' %}">Добавить товар</a>
-              </li>
-            {% endif %}
+          {% if user.is_staff %}
             <li class="nav-item">
-              <form action="{% url 'logout' %}" method="post" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none;">Выйти</button>
-              </form>
+              <a class="nav-link" href="{% url 'add_product' %}">Добавить товар</a>
             </li>
-          {% else %}
-             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-             <a class="nav-link" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Войти</a>
+          {% endif %}
+          <li class="nav-item">
+            <form action="{% url 'logout' %}" method="post" class="d-inline">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none;">Выйти</button>
+            </form>
+          </li>
+        {% else %}
+          <!-- Подключение иконок Bootstrap -->
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+          <a class="nav-link" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Войти</a>
           {% comment %} Bootstrap Icons, можно улучшить визуал {% endcomment %}
           
             {% comment %} <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}">Войти</a>
             </li> {% endcomment %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+          </li>
+        {% endif %}
+      </ul>
     </div>
+  </div>
   </nav>
+
+  <!-- Логотип -->
+  <img src="{% static '\image\shop1.jpg' %}" alt="Логотип" class="logo">
+
+   <!-- Контент страницы -->
   <div class="container mt-4">
     {% block content %}{% endblock %}
   </div>
+
+  <!-- Подключение JavaScript из CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Локальный JS -->
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
 
