@@ -3,11 +3,50 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <h2 class="mb-4">Добавить товар</h2>
+
+     <!-- Сообщения Django -->
+     {% if messages %}
+     {% for message in messages %}
+       <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+     {% endfor %}
+   {% endif %}
+
+   <!-- Форма добавления товара -->
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Добавить товар</button>
+
+      {% for field in form %}
+      <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    {% comment %} {{ form.as_p }} {% endcomment %}
+
+     <!-- Предпросмотр загруженного изображения -->
+     <img id="preview" class="img-fluid mt-3" style="max-height: 200px; display: none;">
+     
+      <button type="submit" class="btn btn-primary mt-3">Добавить товар</button>
     </form>
   </div>
 </div>
+
+<!-- Скрипт для предпросмотра изображения -->
+<script>
+  document.getElementById("id_image").onchange = function (e) {
+    let reader = new FileReader();
+    reader.onload = function (event) {
+      let img = document.getElementById("preview");
+      img.src = event.target.result;
+      img.style.display = "block";
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+</script>
 {% endblock %}
+
+{% comment %} Этот шаблон add_product.html предназначен для страницы добавления товаров в магазине. Он расширяет base.html и использует Django Forms. 
+ добавить предпросмотр загруженного изображения использовать JavaScript:{% endcomment %}
