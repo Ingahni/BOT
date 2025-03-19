@@ -15,7 +15,7 @@ TG_TOKEN = os.getenv("TG_TOKEN")
 if not TG_TOKEN:
     raise ValueError("TG_TOKEN не определено. Убедитесь, что переменная окружения TG_TOKEN установлена.")
 
-CURRENCY = "EURO"  # валюта по умолчанию
+CURRENCY = "EURO"  # валюта по умолчанию €
 
 @sync_to_async
 def get_all_products():

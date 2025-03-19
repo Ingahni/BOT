@@ -1,15 +1,17 @@
 {% comment %} base.html шаблон наследует основной макет. {% endcomment %}
-{% comment %} ключевые данные заказа: номер, статус, способ доставки, сумма {% endcomment %}
+{% comment %} ключевые данные заказа: номер, статус, способ доставки, сумма (всегда будет отображаться с двумя знаками после запятой.) {% endcomment %}
 
 
 {% extends 'base.html' %} 
+
 {% block content %}
 <div class="order-summary">
 <h2>Заказ оформлен</h2>
-<p>Номер заказа: {{ order.id }}</p>
-<p>Статус: {{ order.get_status_display }}</p>
-<p>Способ доставки: {{ order.get_shipping_method_display }}</p>
-<p>Сумма: {{ order.total_price }} euro..</p>
+<p>Номер заказа: {{ order.id|default:"Неизвестно" }}</p>
+<p>Статус: {{ order.get_status_display|default:"Не указан" }}</p>
+<p>Способ доставки: {{ order.get_shipping_method_display|default:"Не указан" }}</p>
+<p>Сумма: {{ order.total_price|floatformat:2 }} €</p>
+{% comment %} <p>Сумма: {{ order.total_price }} €</p> {% endcomment %}
 <a href="{% url 'catalog' %}">Вернуться к каталогу</a>
 </div>
 {% endblock %}

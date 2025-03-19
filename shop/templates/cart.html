@@ -1,13 +1,51 @@
+{% comment %} 1. Отображение товаров в корзине с их количеством и ценой
+2. Отображение общей суммы заказа, версткa с Bootstrap
+3. Форма выбора способа доставки
+4. Проверка, пуста ли корзина,  Добавить кнопку "Удалить товар из корзины" {% endcomment %}
+{% comment %} 5. Отображать стоимость товаров по формуле quantity * price {% endcomment %}
+
 {% extends 'base.html' %}
+
 {% block content %}
-<h2>Корзина</h2>
-{% if items %}
-<ul>
-{% for item in items %}
+<div class="container">
+ <h2 class="mb-4">Корзина</h2>
+
+ {% if items %}
+ <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Товар</th>
+      <th>Кол-во</th>
+      <th>Цена за шт.</th>
+      <th>Итого</th>
+      <th>Действие</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.product.name }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.product.price }} €</td>
+      <td>{{ item.total_price }} €</td>
+      <td>{{ item.quantity|floatformat:0|add:item.product.price|floatformat:2 }} €</td>
+      <td>
+        <<form method="post" action="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger">Удалить</a>
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% comment %} {% for item in items %}
   <li>{{ item.product.name }} ({{ item.quantity }} шт) - {{ item.product.price }} euro.</li>
-{% endfor %}
-</ul>
-<p>Сумма: {{ total }} euro..</p>
+{% endfor %} {% endcomment %}
+
+<p class="fw-bold">Общая сумма: {{ total }} €</p>
+
 <form method="post" action="{% url 'checkout' %}">
   {% csrf_token %}
   <label>Доставка:</label>
@@ -16,10 +54,13 @@
     <option value="courier">Курьер</option>
     <option value="digital">Цифровая</option>
   </select>
-  <button type="submit">Оформить заказ</button>
+  <button type="submit" class="btn btn-success w-100">Оформить заказ</button>
 </form>
+
 {% else %}
-<p>Корзина пуста</p>
+<p class="alert alert-warning">Корзина пуста</p>
 {% endif %}
-<a href="{% url 'catalog' %}">Назад к каталогу</a>
+
+<a href="{% url 'catalog' %}" class="btn btn-outline-primary mt-3">Назад к каталогу</a>
+</div>
 {% endblock %}
