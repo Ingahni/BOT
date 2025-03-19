@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
 from django.contrib.auth import login, get_user_model
 from django.http import HttpResponse
 from django.conf import settings
-from .models import Product, Order, OrderItem, Category
+from .models import Product, Order, OrderItem, Category, CartItem
 from .forms import RegisterForm, ProductForm
 import stripe
 
@@ -45,6 +45,12 @@ def view_cart(request):
         items.append({'product': product, 'quantity': qty})
         total += product.price * qty
     return render(request, 'cart.html', {'items': items, 'total': total})
+
+def remove_from_cart(request, product_id):
+    # """Удаляет товар из корзины"""
+    item = get_object_or_404(CartItem, product__id=product_id, user=request.user)
+    item.delete()
+    return redirect('view_cart')
 
 @login_required
 def checkout(request):
@@ -116,6 +122,13 @@ def add_product(request):
     else:
         form = ProductForm()
     return render(request, 'add_product.html', {'form': form})
+
+from django.shortcuts import render
+
+@admin_required
+def pay_order(request):
+    # Ваш код обработки платежа
+    return render(request, 'shop/pay_order.html')
 
 
 
