@@ -13,8 +13,13 @@
    {% endif %}
 
    <!-- Форма добавления товара -->
+   {% comment %} <h2>{% if product %}Редактировать{% else %}Добавить{% endif %} товар</h2> {% endcomment %}
+
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
+      {% comment %} {{ form.as_p }} {% endcomment %}
+      {% comment %} <button type="submit" class="btn btn-primary mt-3">{% if product %}Сохранить изменения{% else %}Добавить товар{% endif %}</button> {% endcomment %}
+    </form>
 
       {% for field in form %}
       <div class="mb-3">
@@ -36,7 +41,7 @@
 </div>
 
 <!-- Скрипт для предпросмотра изображения -->
-<script>
+{% comment %} <script>
 document.getElementById("id_image").onchange = function (e) {
   let reader = new FileReader();
   reader.onload = function (event) {
@@ -46,7 +51,7 @@ document.getElementById("id_image").onchange = function (e) {
   };
   reader.readAsDataURL(e.target.files[0]);
 };
-</script>
+</script> {% endcomment %}
 {% endblock %}
 
 {% comment %} Этот шаблон add_product.html предназначен для страницы добавления товаров в магазине. Он расширяет base.html и использует Django Forms. 

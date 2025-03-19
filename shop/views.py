@@ -144,5 +144,58 @@ def pay_order(request):
     # Ваш код обработки платежа
     return render(request, 'shop/pay_order.html')
 
+
+@admin_required
+def edit_product(request, product_id=None):  
+    product = get_object_or_404(Product, id=product_id)
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Товар успешно обновлен!")
+            return redirect('catalog')  # Или перенаправьте на страницу товаров
+        else:
+            messages.error(request, "Ошибка при обновлении товара.")
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, 'edit_product.html', {'form': form, 'product': product})
+#     # Если product_id передан, то это редактирование товара, иначе создание нового
+
+#     if product_id:
+#         pass
+#         # product = get_object_or_404(Product, id=product_id)
+#     else:
+#         # product = None
+#         pass
+#         # Если форма была отправлена 
+#     if request.method == 'POST':
+#         form = ProductForm(request.POST, request.FILES, instance=product)
+#         if form.is_valid():
+#             form.save() # Сохраняем товар
+#             if product:
+#                 messages.success(request, "Товар успешно добавлен!")
+#             else:
+#                 messages.success(request, "Товар успешно отредактирован!")
+#             return redirect('catalog')
+#         else:
+#             messages.error(request, "Ошибка при добавлении/редактировании  товара.")
+#     else:
+#          # Если это GET-запрос, создаем форму с текущими данными товара (если редактирование)
+#         form = ProductForm(instance=product)
+#         # form = ProductForm()
+
+#     return render(request, 'add_or_edit_product.html', {'form': form, 'product': product})
+
+def edit_product(request, product_id):
+    # Получаем товар по ID или возвращаем 404 ошибку, если товар не найден
+    product = get_object_or_404(Product, id=product_id)
+
+@admin_required
+def pay_order(request):
+    # Ваш код обработки платежа
+    return render(request, 'shop/pay_order.html')
+
 # Функция login_required — это декоратор, который используется для защиты представлений, доступных только для авторизованных пользователей. Если пользователь не авторизован, он будет перенаправлен на страницу входа.
 

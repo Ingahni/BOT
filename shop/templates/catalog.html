@@ -20,6 +20,7 @@
 <div class="row">
   {% for product in products %}
     <div class="col-md-4 mb-4">
+
       {% comment %} 2. {% endcomment %}
       <div class="card h-100">
         {% if product.image %}
@@ -32,6 +33,7 @@
           <p class="card-text">{{ product.description|truncatechars:100 }}</p>
           <p class="card-text fw-bold">{{ product.price }} €</p>
         </div>
+        
         {% comment %} 3. {% endcomment %}
         <div class="card-footer">
           {% if user.is_authenticated %}
