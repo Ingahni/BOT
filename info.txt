@@ -18,3 +18,9 @@
 
 background-color: #fff;
 display: flex;.
+
+2/ Если ошибка сохраняется, удалите файлы __pycache__:
+
+find . -name "__pycache__" -type d -exec rm -rf {} +
+
+или вручную удалите папку __pycache__ в shop/.
