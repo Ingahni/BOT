@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
-from django.contrib.auth import login, get_user_model
+from django.contrib.auth import login, get_user_model, authenticate
 from django.http import HttpResponse
 from django.conf import settings
 from .models import Product, Order, OrderItem, Category, CartItem
@@ -74,14 +74,22 @@ def checkout(request):
 
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request, data=request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.get_user()
+            # user = form.save()
             login(request, user)
+            messages.success(request, "Вы успешно вошли!")
             return redirect('catalog')
+        else:
+            messages.error(request, "Неверные данные. Попробуйте снова.")
     else:
         form = RegisterForm()
+        
     return render(request, 'registration/register.html', {'form': form})
+# Функция register — это представление, которое обрабатывает регистрацию нового пользователя. 
+# После того как пользователь регистрируется через форму, его данные сохраняются, 
+# и с помощью функции login(request, user) он автоматически входит в систему.
 
 @login_required
 def account(request):
@@ -110,6 +118,9 @@ def admin_auto_login(request):
             return HttpResponse("Нет прав администратора")
     return HttpResponse("Telegram ID или токен не указаны")
 
+# Функция admin_auto_login — здесь происходит автоматический вход администратора, используя telegram_id и token. 
+# Когда эти параметры получены и проверены, пользователь автоматически логинится и перенаправляется на страницу каталога.
+
 def admin_required(view_func):
     return user_passes_test(lambda u: u.is_staff)(view_func)
 
@@ -133,5 +144,5 @@ def pay_order(request):
     # Ваш код обработки платежа
     return render(request, 'shop/pay_order.html')
 
-
+# Функция login_required — это декоратор, который используется для защиты представлений, доступных только для авторизованных пользователей. Если пользователь не авторизован, он будет перенаправлен на страницу входа.
 
